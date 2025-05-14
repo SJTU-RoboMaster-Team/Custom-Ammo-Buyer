@@ -44,7 +44,8 @@ add_executable(${CMAKE_PROJECT_NAME}
         User/ammo_buyer.cpp
         User/control.cpp
         User/ammo_buyer.h
-        User/control.h)
+        User/control.h
+        User/config.h)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)

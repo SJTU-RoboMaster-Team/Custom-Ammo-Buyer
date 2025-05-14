@@ -3,7 +3,7 @@
 //
 #include "key.h"
 
-KEY key1(KEY1_GPIO_Port, KEY1_Pin,LED1_GPIO_Port, LED1_Pin);
+KEY key1(KEY1_GPIO_Port, KEY1_Pin,LED1_GPIO_Port, LED1_Pin); //reserve
 KEY key2(KEY2_GPIO_Port,KEY2_Pin,LED2_GPIO_Port, LED2_Pin);
 KEY key3(KEY3_GPIO_Port,KEY3_Pin,LED3_GPIO_Port, LED3_Pin);
 KEY key4(KEY4_GPIO_Port,KEY4_Pin,LED4_GPIO_Port, LED4_Pin);

@@ -13,11 +13,12 @@ void ledTask(void) {
 void controlLoop(void) {
     ammo_buyer.refresh_status();
 
-    //monitor函数对idle状态的key进行周期性监视
-    //当监视到有按键触发时，该按键lock=true，在按键下降沿之前不在对其访问
-    if (ammo_buyer.keyMonitor() == true) {
+    // monitor函数对idle状态的key进行周期性监视
+    // 当监视到有按键触发时，该按键lock=true，在按键下降沿之前不在对其访问
+    if(ammo_buyer.islocked()==false) {
+      if (ammo_buyer.keyMonitor() == true) {
         ammo_buyer.handle();
-        ammo_buyer.txHandler();
+      }
     }
     ledTask();
 }
