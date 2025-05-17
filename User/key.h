@@ -57,5 +57,13 @@ public:
         }
         set_state_();
     }
+
+    void set_on() {
+        HAL_GPIO_WritePin(led_port_, led_gpio_pin_, GPIO_PIN_SET);
+    }
+
+    void set_off() {
+        HAL_GPIO_WritePin(led_port_, led_gpio_pin_, GPIO_PIN_RESET);
+    }
 };
 #endif //KEY_H

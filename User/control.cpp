@@ -6,7 +6,13 @@
 extern AmmoBuyer ammo_buyer;
 
 void ledTask(void) {
-
+    for (uint32_t i = 0; i < ammo_buyer.NumberOfKeys(); i++) {
+        if (ammo_buyer.keys_[i].is_rise_()) {
+            ammo_buyer.keys_[i].set_on();
+        }else if (ammo_buyer.keys_[i].is_fall_()) {
+            ammo_buyer.keys_[i].set_off();
+        }
+    }
 }
 
 // tim6中断调用，25Hz
@@ -18,6 +24,8 @@ void controlLoop(void) {
     if(ammo_buyer.islocked()==false) {
       if (ammo_buyer.keyMonitor() == true) {
         ammo_buyer.handle();
+      }else {
+          ammo_buyer.prohibit_tx();
       }
     }
     ledTask();

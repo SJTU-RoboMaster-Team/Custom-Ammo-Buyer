@@ -16,19 +16,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim6) {
         counter++;
         controlLoop();
-        if (counter>=40) {
-            ammo_buyer.txHandler();
-            // key4.refresh_key_state_();
-            // if (key4.is_rise_() == true) {
-            //     key4.lock_ = true;
-            //     HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_SET);
-            // } else if (key4.is_fall_() == true) {
-            //     key4.lock_ = false;
-            //     HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
-            // }
-            // SetFrame();
+        if (counter >= 40) {
+            if (ammo_buyer.is_tx_allowed() == true) {
+                ammo_buyer.txHandler();
+                // key4.refresh_key_state_();
+                // if (key4.is_rise_() == true) {
+                //     key4.lock_ = true;
+                //     HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_SET);
+                // } else if (key4.is_fall_() == true) {
+                //     key4.lock_ = false;
+                //     HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
+                // }
+                // SetFrame();
+            }
             counter = 0;
         }
-
     }
 }

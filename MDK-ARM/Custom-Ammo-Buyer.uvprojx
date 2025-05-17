@@ -549,6 +549,11 @@
               <FileType>8</FileType>
               <FilePath>..\User\ammo_buyer.cpp</FilePath>
             </File>
+            <File>
+              <FileName>control.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\control.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

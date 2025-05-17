@@ -16,7 +16,8 @@
 #define Custom_Client_ID 0x0306
 #define CONTROLLER_TX_BUF_LEN 32
 #define NUMBER_OF_KEYS 4
-#define DATA_LEN_SUM_MAX 64 //最多8帧数据即可完成一个任务
+#define MAX_STEP_NUM 16 //最多执行16步即可完成一个任务
+#define DATA_LEN_SUM_MAX (MAX_STEP_NUM*4) //最多8帧数据即可完成一个任务
 
 typedef struct ClientCommFrameHeader {
   uint8_t sof;
@@ -33,7 +34,8 @@ typedef struct ClientCommFrame {
 } __packed ClientCommFrame_t;
 
 typedef struct CustomClientFrame {
-  uint16_t key_value;
+  uint8_t key_value1;
+  uint8_t key_value2;
   uint16_t x_position : 12;
   uint16_t mouse_left : 4;
   uint16_t y_position : 12;
@@ -45,7 +47,6 @@ class AmmoBuyer {
   UART_HandleTypeDef* huart_;
   // uint8_t locks_[NUMBER_OF_KEYS];
   uint32_t num_of_keys_;
-  KEY* keys_;
   bool lock_;
   uint32_t offset_;
 
@@ -53,15 +54,20 @@ class AmmoBuyer {
     ClientCommFrame_t frame_;
     uint32_t pack_size_;
     uint8_t tx_buf_[CONTROLLER_TX_BUF_LEN];
-    uint32_t target_data_len_;
+    uint32_t number_of_steps_;
     uint32_t transmitted_data_len_;
+    custom_client_data_t data_;
     uint8_t data_package_[DATA_LEN_SUM_MAX];
+    bool allow_tx_;
   } tx_;
 
   typedef enum state { IDLE, BUSY } KeyState;
   KeyState state_;
 
  public:
+
+  KEY* keys_;
+
   typedef enum TASK {
     REMOTE_AMMO, //key3
     REMOTE_BLOOD, //key2
@@ -87,6 +93,12 @@ class AmmoBuyer {
   void txHandler();
   void handle();
   bool islocked() { return lock_; }
+  void prohibit_tx() {
+    tx_.allow_tx_ = false;
+  }
+  bool is_tx_allowed() {
+    return tx_.allow_tx_;
+  }
 };
 
 #endif  // AMMO_BUYER_H

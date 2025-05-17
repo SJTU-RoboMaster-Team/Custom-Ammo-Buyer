@@ -11,7 +11,7 @@ KEY key4(KEY4_GPIO_Port,KEY4_Pin,LED4_GPIO_Port, LED4_Pin);
 KEY key_array[4] = {key1, key2, key3, key4};
 
 bool KEY::check_status() {
-    if (HAL_GPIO_ReadPin(key_port_, key_gpio_pin_) == key_state_) {
+    if ((KeyState)HAL_GPIO_ReadPin(key_port_, key_gpio_pin_) == key_state_) {
         error_status_ = OK;
         return true;
     }
